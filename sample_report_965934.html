@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>RiskShield Merchant Risk Report · 965934</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+:root{
+  --bg:#0A0F1C; --panel:#151F38; --panel-2:#1A243F; --panel-3:#1F2A4A;
+  --ink:#EAF0FA; --ink-mute:#B7C0D6; --grey:#8A93A6; --soft:#5E6A87;
+  --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.10); --hair:rgba(255,255,255,.05);
+  --violet:#7B5CF0; --indigo:#4636C7; --crit:#C8235D; --dispute:#FF6B8A; --teal:#18C2B8;
+  --green:#02B152; --orange:#FBAA19;
+  --grad:linear-gradient(120deg,#4636C7 0%,#7B5CF0 60%,#18C2B8 120%);
+  --shadow:0 12px 32px rgba(0,0,0,.4);
+  --glow-teal:0 0 22px rgba(24,194,184,.35);
+  --glow-crit:0 0 22px rgba(200,35,93,.35);
+  --glow-violet:0 0 22px rgba(123,92,240,.35);
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(70,54,199,.18), transparent 60%),
+    radial-gradient(900px 600px at 110% 10%, rgba(24,194,184,.10), transparent 60%),
+    var(--bg);
+  color:var(--ink);
+  font-family:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  font-size:13.5px;line-height:1.55;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  -webkit-font-smoothing:antialiased
+}
+.page{max-width:1120px;margin:0 auto;padding:48px 52px 90px}
+.brandbar{
+  display:flex;align-items:center;gap:14px;padding-bottom:22px;
+  border-bottom:1px solid var(--line);margin-bottom:32px
+}
+.brandbar svg{display:block;flex:0 0 auto}
+.wordmark{font-weight:800;color:#fff;font-size:15.5px;letter-spacing:-.01em;line-height:1.15}
+.wordmark small{display:block;font-weight:700;color:var(--grey);font-size:9px;letter-spacing:.24em;text-transform:uppercase;margin-top:2px}
+.prodname{margin-left:auto;font-weight:800;font-size:14px;color:#fff}
+.prodname b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{font-size:44px;line-height:1.04;font-weight:800;letter-spacing:-.028em;color:#fff;margin:0 0 14px}
+.sub{color:var(--ink-mute);font-size:13.5px;margin:0 0 8px;max-width:820px;line-height:1.6}
+.term{
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(180deg,#0B1530,#070D1F);
+  border-radius:16px 16px 0 0;padding:13px 20px;
+  color:#9FB0D0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  border:1px solid var(--line);border-bottom:none
+}
+.term .d{width:10px;height:10px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 8px currentColor}
+.term .live{
+  margin-left:auto;color:var(--teal);font-weight:700;letter-spacing:.18em;
+  padding:3px 10px;border-radius:999px;border:1px solid rgba(24,194,184,.4);
+  background:rgba(24,194,184,.08);box-shadow:var(--glow-teal)
+}
+.termbody{
+  border:1px solid var(--line);border-top:none;border-radius:0 0 16px 16px;
+  padding:26px;
+  background:linear-gradient(180deg,var(--panel),#121B32);
+  box-shadow:var(--shadow)
+}
+.sec{margin-top:52px}
+.eyebrow{
+  font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:8px;display:inline-flex;align-items:center;gap:8px
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--teal),transparent)}
+.sec h2{font-size:28px;font-weight:800;letter-spacing:-.02em;color:#fff;margin:0 0 20px}
+h3{font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--grey);margin:28px 0 12px;border:none;padding:0}
+
+.execgrid{display:flex;gap:22px;flex-wrap:wrap}
+.execcol{flex:1;min-width:260px;display:flex;flex-direction:column;gap:14px}
+.execcol.wide{flex:1.55;min-width:340px}
+.colcap{font-size:9.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--grey)}
+
+.statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:6px}
+.stat{
+  position:relative;overflow:hidden;
+  border:1px solid var(--line);border-radius:16px;padding:18px 20px;min-width:200px;
+  background:linear-gradient(180deg,var(--panel),#121B32);box-shadow:var(--shadow)
+}
+.stat::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--grad);opacity:.9
+}
+.stat .k{font-size:9.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+.stat .v{font-size:32px;font-weight:800;color:#fff;margin-top:8px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.05}
+.stat .v small{font-size:11px;font-weight:700;color:var(--grey);letter-spacing:.04em}
+.stat .v.gmv{color:#fff;text-shadow:0 0 24px rgba(24,194,184,.35)}
+.stat .v.dsp{color:#fff;text-shadow:0 0 24px rgba(200,35,93,.4)}
+.stat .s{font-size:11px;color:var(--grey);margin-top:6px}
+
+.scorelist{display:flex;flex-direction:column;gap:10px}
+.score{
+  display:flex;align-items:center;gap:14px;
+  border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+  background:linear-gradient(180deg,var(--panel),#121B32);box-shadow:var(--shadow)
+}
+.score .edge{width:4px;align-self:stretch;border-radius:999px;flex:0 0 auto;box-shadow:0 0 10px currentColor}
+.score .sl{min-width:200px}
+.score .sn{font-weight:700;color:#fff;font-size:13.5px;letter-spacing:-.01em}
+.score .sw{
+  display:inline-block;font-size:9px;font-weight:800;letter-spacing:.18em;margin-top:6px;text-transform:uppercase;
+  padding:3px 10px;border-radius:999px;border:1px solid currentColor;background:rgba(255,255,255,.04)
+}
+.score .sbar{flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden;min-width:90px;border:1px solid var(--hair)}
+.score .sbar i{display:block;height:100%;border-radius:999px;box-shadow:0 0 12px currentColor}
+.score .sv{font-size:22px;font-weight:800;min-width:76px;text-align:right;letter-spacing:-.015em;font-variant-numeric:tabular-nums}
+
+table{
+  width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;
+  background:linear-gradient(180deg,var(--panel),#121B32);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  box-shadow:var(--shadow);margin-bottom:12px
+}
+th{
+  font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);text-align:left;
+  padding:12px 14px;background:var(--panel-2);border-bottom:1px solid var(--line);white-space:nowrap
+}
+td{
+  padding:11px 14px;border-bottom:1px solid var(--hair);color:var(--ink);font-size:12.5px;
+  vertical-align:top;font-variant-numeric:tabular-nums
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--panel-3)}
+td.txt{color:var(--ink)} td.num,th.num{text-align:right}
+
+.stamp{
+  display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 12px;border-radius:999px;border:1px solid transparent
+}
+.stamp.bad{background:rgba(200,35,93,.14);color:#FF7A9C;border-color:rgba(200,35,93,.45);box-shadow:var(--glow-crit)}
+.stamp.warn{background:rgba(123,92,240,.14);color:#B9A7FF;border-color:rgba(123,92,240,.45);box-shadow:var(--glow-violet)}
+.stamp.ok{background:rgba(24,194,184,.12);color:#7EEDE1;border-color:rgba(24,194,184,.45);box-shadow:var(--glow-teal)}
+
+.bar{
+  height:9px;border-radius:999px;
+  background:linear-gradient(90deg,var(--indigo),var(--violet),var(--teal));
+  min-width:3px;box-shadow:0 0 14px rgba(123,92,240,.5)
+}
+.barrow{display:flex;align-items:center;gap:8px}
+.barrow .bar{flex:1 1 auto}
+.barlbl{font-size:10px;color:var(--grey);font-variant-numeric:tabular-nums;min-width:40px;text-align:right}
+
+/* on-chart data labels (SVG text) — dark on-screen defaults */
+.clbl{fill:#B9C0CF;font-family:ui-monospace,monospace}
+.clbl-rate{fill:#F5B8C6;font-weight:700;font-family:ui-monospace,monospace}
+.cxlbl{fill:#8A93A6;font-family:ui-monospace,monospace}
+.donut-seglbl{position:absolute;transform:translate(-50%,-50%);z-index:3;
+  font-size:11px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;
+  text-shadow:0 1px 3px rgba(0,0,0,.75);pointer-events:none}
+
+.chartwrap{
+  border:1px solid var(--line);border-radius:16px;padding:18px;overflow-x:auto;
+  background:linear-gradient(180deg,var(--panel),#121B32);box-shadow:var(--shadow)
+}
+.legend{font-size:10.5px;color:var(--grey);margin-top:10px;letter-spacing:.04em}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin:0 6px 0 12px;vertical-align:-2px}
+
+.chip{
+  display:inline-block;font-size:11px;font-weight:600;color:var(--ink);
+  border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;
+  margin:0 8px 8px 0;background:rgba(255,255,255,.03)
+}
+.chip b{color:#fff;font-weight:800}
+
+.listmeta{font-size:11px;color:var(--grey)}
+details summary{font-size:11px;font-weight:700;color:var(--teal);padding:8px 0;cursor:pointer;letter-spacing:.14em;text-transform:uppercase}
+details[open] summary{margin-bottom:8px}
+.brandfoot{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);font-size:10.5px;color:var(--grey);letter-spacing:.14em;text-transform:uppercase}
+.empty{display:none}
+
+/* Donut (payment-mode split) — QuickSight-style */
+.donut-wrap{
+  display:grid;grid-template-columns:minmax(220px,260px) 1fr;gap:22px;align-items:center;
+  background:linear-gradient(180deg,var(--panel),#121B32);
+  border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);
+  margin-bottom:12px
+}
+.donut{position:relative;width:220px;height:220px;margin:0 auto;border-radius:50%;filter:drop-shadow(0 10px 30px rgba(70,54,199,.35))}
+.donut::after{
+  content:"";position:absolute;inset:22%;
+  background:radial-gradient(circle at 50% 40%, #1A243F 0%, #0F1729 100%);
+  border-radius:50%;border:1px solid var(--line-2);
+  box-shadow:inset 0 0 30px rgba(0,0,0,.5)
+}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;text-align:center;padding:0 12px}
+.donut-center .dk{font-size:9px;font-weight:800;letter-spacing:.26em;color:var(--grey);text-transform:uppercase}
+.donut-center .dv{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em;margin-top:4px;font-variant-numeric:tabular-nums}
+.donut-center .ds{font-size:10px;color:var(--grey);margin-top:2px;letter-spacing:.05em}
+.donut-legend{display:flex;flex-direction:column;gap:8px}
+.dl-row{
+  display:grid;grid-template-columns:14px 1fr auto auto;gap:10px;align-items:center;
+  padding:9px 12px;border-radius:10px;
+  background:rgba(255,255,255,.02);border:1px solid var(--hair)
+}
+.dl-row .sw{width:12px;height:12px;border-radius:4px;box-shadow:0 0 8px currentColor}
+.dl-row .nm{font-size:12px;color:#fff;font-weight:600}
+.dl-row .pc{font-size:11px;color:var(--grey);font-family:var(--mono);font-variant-numeric:tabular-nums}
+.dl-row .am{font-size:12px;color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ---- C1 savable-disputes hero ---- */
+.savehero{border:1px solid var(--line-2);border-radius:16px;padding:20px 22px;margin:4px 0 22px;
+  background:linear-gradient(180deg,rgba(200,35,93,.07),rgba(255,255,255,.01));box-shadow:var(--shadow)}
+.saveyebrow{font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--dispute);margin-bottom:12px}
+.savekpis{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px}
+.savekpi{flex:1;min-width:240px;border:1px solid var(--line);border-radius:13px;padding:14px 16px;background:rgba(255,255,255,.02)}
+.savekpi .k{font-size:9.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.savekpi .v{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:4px;color:var(--ink);font-variant-numeric:tabular-nums}
+.savekpi .v.dsp{color:var(--dispute)}
+.savekpi.sub .v{font-size:24px;color:var(--ink-mute)}
+.savekpi .s{font-size:11px;color:var(--grey);margin-top:5px;line-height:1.4}
+.savline{font-size:15px;line-height:1.55;color:var(--ink);margin:2px 0 4px;max-width:820px}
+.savline b{color:var(--ink);font-weight:800}
+.savline .lo{color:var(--ink-mute)}
+.savline.sub{font-size:13px;color:var(--ink-mute);margin:0 0 16px}
+.savtrack{position:relative;display:flex;height:34px;border-radius:9px;overflow:hidden;border:1px solid var(--line-2);background:rgba(255,255,255,.03);margin-top:4px}
+.savtrack-x{background:linear-gradient(90deg,#7B5CF0,#C8235D);min-width:2px}
+.savtrack-y{background:repeating-linear-gradient(45deg,rgba(255,107,138,.42),rgba(255,107,138,.42) 6px,rgba(255,107,138,.18) 6px,rgba(255,107,138,.18) 12px);min-width:0}
+.savtrack-cap{display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px;margin-top:8px;font-size:10.5px;color:var(--ink-mute)}
+.savtrack-cap b{color:var(--ink)}
+.savtrack-cap .right{margin-left:auto;color:var(--grey)}
+.savtrack-cap .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+.savtrack-cap .sw.hatch{background:repeating-linear-gradient(45deg,rgba(255,107,138,.6),rgba(255,107,138,.6) 3px,rgba(255,107,138,.2) 3px,rgba(255,107,138,.2) 6px)}
+.dotc{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:0}
+tr.subq td{color:var(--grey);font-size:10.5px;padding-top:2px;padding-bottom:8px;background:rgba(255,255,255,.015)}
+.submark{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);border:1px solid var(--line-2);border-radius:4px;padding:1px 6px;margin-right:8px;vertical-align:1px}
+tr.subtot td{border-top:1px solid var(--line-2);background:rgba(123,92,240,.06)}
+tr.divrow td{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);background:rgba(255,255,255,.02);padding-top:9px;padding-bottom:9px}
+tr.totrow td{border-top:2px solid var(--line-2);background:rgba(200,35,93,.08);font-size:14px}
+.savbar{display:flex;height:26px;border-radius:8px;overflow:hidden;border:1px solid var(--line-2)}
+.savseg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;min-width:2px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.savlegend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px}
+.savleg{font-size:10.5px;color:var(--ink-mute)}
+.savleg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.savleg b{color:var(--ink)}
+/* ---- C3 dispute-anatomy block ---- */
+.anat{margin-top:8px}
+.anatgrid{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.anatcard{flex:1;min-width:210px;border:1px solid var(--line);border-radius:13px;padding:14px 16px;background:rgba(255,255,255,.02)}
+.anatcard .ttl{font-size:9.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-bottom:8px}
+.anatkpis{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+.anatkpi{border:1px solid var(--line);border-radius:12px;padding:12px 15px;min-width:150px;background:rgba(255,255,255,.02)}
+.anatkpi .k{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.anatkpi .v{font-size:22px;font-weight:800;color:var(--ink);margin-top:3px;font-variant-numeric:tabular-nums}
+.anatkpi .s{font-size:10.5px;color:var(--grey);margin-top:2px}
+.outbar{display:flex;height:24px;border-radius:8px;overflow:hidden;border:1px solid var(--line-2)}
+.outseg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;min-width:2px;white-space:nowrap}
+
+@page{size:A4;margin:12mm}
+@media print{
+  /* Keep the dark "Modern Fintech Executive" palette in the PDF.
+     Even 12mm margins come from @page; the rules below stop any block being sliced across a page.
+     NOTE: tick "Background graphics" in the print dialog so the dark background renders. */
+  html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--bg)}
+  .page{padding:0;max-width:none;margin:0}
+  .sec{break-inside:auto}
+  .sec>h2{break-before:auto}
+  .verdict-hero,.sigcard,.action,.actions,.stat,.statrow,.benchline,.takeaway,.empty-note,
+  .savehero,.savekpis,.savekpi,.savtrack,.savtrack-cap,.savbar,.outbar,
+  .anatcard,.anatkpis,.anatkpi,.score,figure{break-inside:avoid}
+  table{break-inside:auto}
+  thead{display:table-header-group}
+  tr{break-inside:avoid}
+  tr.subq{break-before:avoid}
+  tr.subtot,tr.totrow,tr.divrow{break-before:avoid}
+  h1,h2,h3,h4{break-after:avoid}
+  h2,h3{break-inside:avoid}
+  p{orphans:3;widows:3}
+  .brandfoot{position:static;margin-top:26px;border:none}
+}
+.verdict-hero{display:flex;gap:26px;align-items:center;border:1px solid var(--line-2);border-radius:18px;padding:22px 26px;background:linear-gradient(180deg,var(--panel),#121B32);box-shadow:var(--shadow);flex-wrap:wrap}
+.vh-left{flex:0 0 auto;min-width:190px;border-right:1px solid var(--line);padding-right:24px}
+.vh-cap{font-size:9.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--grey)}
+.vgrade{font-size:40px;font-weight:900;letter-spacing:-.02em;line-height:1.05;margin-top:6px}
+.vscore{font-size:15px;font-weight:800;color:var(--ink-mute);margin-top:2px}.vscore small{color:var(--soft);font-weight:700}
+.vh-right{flex:1;min-width:280px}
+.recon{font-size:13.5px;line-height:1.6;color:var(--ink)}
+.siggrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.sigcard{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:linear-gradient(180deg,var(--panel),#121B32);box-shadow:var(--shadow)}
+.sig-top{display:flex;align-items:baseline;justify-content:space-between}
+.sig-k{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.sig-wt{font-size:9.5px;font-weight:800;color:var(--soft);font-variant-numeric:tabular-nums}
+.sig-v{font-size:20px;font-weight:800;color:#fff;margin:6px 0 8px;letter-spacing:-.01em}
+.sigbar{height:7px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden;border:1px solid var(--hair)}
+.sigbar i{display:block;height:100%;border-radius:999px;box-shadow:0 0 10px currentColor}
+.sig-g{font-size:10px;font-weight:800;letter-spacing:.14em;margin-top:8px;text-transform:uppercase}
+.sig-bench{font-size:10px;color:var(--soft);margin-top:6px;line-height:1.45}
+.sig-note{font-size:10.5px;color:var(--grey);margin-top:5px;line-height:1.45}
+.actions{display:flex;flex-direction:column;gap:10px}
+.action{position:relative;border:1px solid var(--line);border-radius:14px;padding:13px 16px 13px 20px;background:linear-gradient(180deg,var(--panel),#121B32);box-shadow:var(--shadow);overflow:hidden}
+.a-edge{position:absolute;left:0;top:0;bottom:0;width:4px}
+.a-n{font-size:13.5px;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px}
+.a-num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:999px;background:rgba(255,255,255,.06);font-size:11px;color:var(--ink-mute)}
+.a-sev{margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.16em}
+.a-d{font-size:12px;color:var(--ink-mute);margin-top:5px;line-height:1.55}
+.takeaway{font-size:12px;color:var(--ink-mute);margin:2px 0 20px;padding-left:12px;border-left:2px solid var(--teal);line-height:1.55}
+.takeaway.morelink{border-left-color:var(--soft);color:var(--grey);font-style:italic;margin-bottom:12px}
+.empty-note{font-size:12px;color:var(--grey);font-style:italic;margin:2px 0 20px;padding-left:12px;border-left:2px solid var(--line-2)}
+.benchline{font-size:10.5px;color:var(--soft);margin:-8px 0 18px;letter-spacing:.02em}
+.appx h2{font-size:22px}
+.appx .eyebrow{color:var(--grey)}.appx .eyebrow::before{background:linear-gradient(90deg,var(--grey),transparent)}
+.csvlink{display:inline-block;font-size:11px;font-weight:700;color:var(--teal);text-decoration:none;border:1px solid rgba(24,194,184,.35);border-radius:999px;padding:6px 13px;margin:2px 0 8px;letter-spacing:.02em}
+.glossary{margin:0}.glossary dt{font-weight:800;color:#fff;font-size:12.5px;margin-top:12px}.glossary dd{margin:3px 0 0;color:var(--ink-mute);font-size:12px;line-height:1.55}
+.dq{margin:0;padding-left:18px}.dq li{font-size:12px;color:var(--ink-mute);line-height:1.6;margin-bottom:8px}
+@media print{.verdict-hero,.sigcard,.action,.stat{break-inside:avoid}.sec{break-inside:auto}h2,h3{break-after:avoid}}
+</style></head>
+<body><div class="page">
+<div class="brandbar"><svg width="36" height="36" viewBox="0 0 48 48" role="img" aria-label="Cashfree Payments"><rect x="1.5" y="1.5" width="45" height="45" rx="11" fill="#FFFFFF" stroke="#E6E9F2"/><path d="M13.5 36.5 C13.5 19.5 22.5 11 37 10 C36 25 27 34.5 13.5 36.5 Z" fill="#02B152"/><path d="M15 35 C17 27.5 21 21.5 27.5 17.5" stroke="#FBAA19" stroke-width="3.6" fill="none" stroke-linecap="round"/></svg><div class="wordmark">Cashfree Payments<small>Risk &amp; Compliance</small></div><div class="prodname">Risk<b>Shield</b> · Merchant Risk Report</div></div>
+<h1>Merchant 965934.<br>Risk, decided.</h1>
+<p class="sub">Merchant 965934 · lookback 180 days · compiled 24/7/2026, 1:08:12 am · benchmarks as of 2026-07-01. A decision-first read: the verdict and actions first, the evidence behind it next, full tables in the appendices.</p>
+<section class="sec" id="s1"><div class="eyebrow">Section 1 · Verdict &amp; actions</div><h2>The verdict.</h2>
+    <div class="verdict-hero" style="border-color:#7B5CF066">
+      <div class="vh-left"><div class="vh-cap">Overall risk grade</div>
+        <div class="vgrade" style="color:#7B5CF0">ELEVATED</div>
+        <div class="vscore">52<small>/100</small></div></div>
+      <div class="vh-right"><div class="recon">Overall ELEVATED (weighted score 52/100) — driven chiefly by rate trend (CRITICAL) and fraud-coded share (HIGH). Held down by dispute rate (amount) (LOW: 0.21%). Coverage 5/5 signals · weights: amount dispute-rate 30%, fraud share 25%, trend 20%, concentration 15%, network 10%.</div></div>
+    </div>
+    <h3>Dispute rates (dual)</h3><div class="statrow" style="margin-top:4px">
+    <div class="stat"><div class="k">Dispute rate · amount (primary)</div><div class="v dsp">0.21%</div>
+      <div class="s">₹9,85,177 disputed / ₹46,07,00,000 captured · 180d</div></div>
+    <div class="stat"><div class="k">Dispute rate · count (compliance ref)</div><div class="v">0.11%</div>
+      <div class="s">2,160 disputes / 19,95,000 captured txns</div></div>
+  </div><div class="benchline">Benchmark — RiskShield internal amount band: above-standard 1% / excessive 3% (amount) — primary. Compliance ref (count): Visa VAMP 0.5% / 1.5%, Mastercard ECP 1.5% / 3% — networks monitor count, not amount.</div>
+    <h3>Risk signals</h3><div class="siggrid"><div class="sigcard"><div class="sig-top"><span class="sig-k">Dispute rate (amount)</span><span class="sig-wt">30%</span></div>
+      <div class="sig-v">0.21%</div>
+      <div class="sigbar"><i style="width:12.8%;background:#18C2B8"></i></div>
+      <div class="sig-g" style="color:#18C2B8">LOW · 13</div>
+      <div class="sig-bench">Benchmark — Internal amount band: above-standard 1%, excessive 3% (amount). Compliance ref (count): Visa VAMP 0.5% / 1.5%</div>
+      </div><div class="sigcard"><div class="sig-top"><span class="sig-k">Fraud-coded share</span><span class="sig-wt">25%</span></div>
+      <div class="sig-v">68%</div>
+      <div class="sigbar"><i style="width:68%;background:#5B3DF5"></i></div>
+      <div class="sig-g" style="color:#5B3DF5">HIGH · 68</div>
+      <div class="sig-bench">no benchmark available</div>
+      <div class="sig-note">₹6,80,000 of ₹10,00,000 disputed value coded fraud (reason 1401 / 128)</div></div><div class="sigcard"><div class="sig-top"><span class="sig-k">Rate trend</span><span class="sig-wt">20%</span></div>
+      <div class="sig-v">1 spike week(s)</div>
+      <div class="sigbar"><i style="width:100%;background:#C8235D"></i></div>
+      <div class="sig-g" style="color:#C8235D">CRITICAL · 100</div>
+      <div class="sig-bench">Benchmark — spike = weekly amount dispute-rate &gt; max(3× trailing-12w median, 1.0%) and disputed ≥ ₹25,000</div>
+      <div class="sig-note">worst: 2026-07-06 at 2.2% (12.9× trailing median), ₹2,35,177 disputed</div></div><div class="sigcard"><div class="sig-top"><span class="sig-k">Concentration</span><span class="sig-wt">15%</span></div>
+      <div class="sig-v">56.84% in top 5</div>
+      <div class="sigbar"><i style="width:58.1%;background:#7B5CF0"></i></div>
+      <div class="sig-g" style="color:#7B5CF0">ELEVATED · 58</div>
+      <div class="sig-bench">no benchmark available</div>
+      <div class="sig-note">top-5 identifiers hold 56.84% of disputed value; worst payment-mode over-index 4.0×</div></div><div class="sigcard"><div class="sig-top"><span class="sig-k">Network / known-bad</span><span class="sig-wt">10%</span></div>
+      <div class="sig-v">2 cross-merchant id(s) · 0% known-bad</div>
+      <div class="sigbar"><i style="width:24%;background:#FBAA19"></i></div>
+      <div class="sig-g" style="color:#FBAA19">GUARDED · 24</div>
+      <div class="sig-bench">no benchmark available</div>
+      </div></div>
+    <h3>Recommended actions</h3><div class="actions"><div class="action"><span class="a-edge" style="background:#C8235D"></span><div class="a-n"><span class="a-num">1</span>Tighten fraud controls<span class="a-sev" style="color:#C8235D">CRITICAL</span></div><div class="a-d">68% of disputed value is fraud-coded (₹6,80,000). Prioritise fraud rules / step-up auth on the highest-dispute payment mode.</div></div><div class="action"><span class="a-edge" style="background:#5B3DF5"></span><div class="a-n"><span class="a-num">2</span>Investigate the 2026-07-06 spike<span class="a-sev" style="color:#5B3DF5">HIGH</span></div><div class="a-d">Weekly amount dispute-rate hit 2.2% (12.9× the trailing median); ₹2,35,177 disputed that week.</div></div><div class="action"><span class="a-edge" style="background:#5B3DF5"></span><div class="a-n"><span class="a-num">3</span>Block known-bad before authorization<span class="a-sev" style="color:#5B3DF5">HIGH</span></div><div class="a-d">₹2,15,000 (21.82% of disputed value) was preventable before settlement — 6 disputed txn(s) hit a blacklist, DOT/MNRL, a prior dispute or the risk model, plus 1 UPI handle(s) to block outright.</div></div><div class="action"><span class="a-edge" style="background:#7B5CF0"></span><div class="a-n"><span class="a-num">4</span>Review the top dispute source<span class="a-sev" style="color:#7B5CF0">ELEVATED</span></div><div class="a-d">UPI_VPA a@upi accounts for ₹2,00,000 disputed across 40 disputes.</div></div><div class="action"><span class="a-edge" style="background:#7B5CF0"></span><div class="a-n"><span class="a-num">5</span>Rebalance risk on CC<span class="a-sev" style="color:#7B5CF0">ELEVATED</span></div><div class="a-d">CC carries 4.0× its share of disputes vs GMV (80% of disputes on 20% of GMV).</div></div></div></section>
+<section class="sec" id="s2"><div class="eyebrow">Section 2 · What's driving disputes</div><h2>The drivers.</h2><h3>Dispute reasons</h3><div style="overflow-x:auto"><table><thead><tr><th class="">Reason group</th><th class="num">Disputed</th><th class="num">Disputes</th><th class="num">Share</th></tr></thead><tbody><tr><td class="txt">Fraud-coded</td><td class="num" style="color:var(--dispute)">₹6,80,000</td><td class="num">120</td><td class="num"><span class="stamp bad">68%</span></td></tr><tr><td class="txt">Service / quality</td><td class="num" style="color:var(--dispute)">₹2,20,000</td><td class="num">60</td><td class="num"><span class="stamp bad">22%</span></td></tr><tr><td class="txt">Processing error</td><td class="num" style="color:var(--dispute)">₹50,000</td><td class="num">20</td><td class="num"><span class="stamp warn">5%</span></td></tr><tr><td class="txt">Uncoded</td><td class="num" style="color:var(--dispute)">₹50,000</td><td class="num">15</td><td class="num"><span class="stamp warn">5%</span></td></tr></tbody></table></div><p class="takeaway">Fraud-coded disputes are <b>68%</b> of disputed value — the dominant driver, and the reason the verdict is not merely a function of the low count rate.</p><div class="benchline">Benchmark — no benchmark available for reason-mix — internal composition metric.</div><h3>Dispute rate over time (amount-based)</h3><div class="chartwrap"><svg viewBox="0 0 680 240" width="680" height="240" role="img" aria-label="Weekly captured vs dispute rate">
+    <defs>
+      <linearGradient id="gradBar" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#7B5CF0" stop-opacity="0.75"/>
+        <stop offset="100%" stop-color="#7B5CF0" stop-opacity="0.05"/>
+      </linearGradient>
+      <linearGradient id="gradArea" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#C8235D" stop-opacity="0.45"/>
+        <stop offset="100%" stop-color="#C8235D" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="glowLine" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="2.4" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <line x1="14" x2="666" y1="55.6" y2="55.6" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 4"/><line x1="14" x2="666" y1="93.2" y2="93.2" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 4"/><line x1="14" x2="666" y1="130.8" y2="130.8" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 4"/><line x1="14" x2="666" y1="168.4" y2="168.4" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 4"/>
+    <rect x="17.0" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-03-23 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="34.4" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">03-23</text><rect x="57.8" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-03-30 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="75.1" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">03-30</text><rect x="98.5" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-04-06 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="115.9" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">04-06</text><rect x="139.3" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-04-13 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="156.6" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">04-13</text><rect x="180.0" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-04-20 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="197.4" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">04-20</text><rect x="220.8" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-04-27 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="238.1" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">04-27</text><rect x="261.5" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-05-04 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="278.9" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">05-04</text><rect x="302.3" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-05-11 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="319.6" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">05-11</text><rect x="343.0" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-05-18 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="360.4" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">05-18</text><rect x="383.8" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-05-25 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="401.1" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">05-25</text><rect x="424.5" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-06-01 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="441.9" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">06-01</text><rect x="465.3" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-06-08 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="482.6" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">06-08</text><rect x="506.0" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-06-15 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="523.4" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">06-15</text><rect x="546.8" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-06-22 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="564.1" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">06-22</text><rect x="587.5" y="18.0" width="34.8" height="188.0" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-06-29 · captured ₹3,00,00,000 · 1,27,000 txns</title></rect><text class="cxlbl" x="604.9" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">06-29</text><rect x="628.3" y="138.9" width="34.8" height="67.1" rx="3" fill="url(#gradBar)" opacity="0.55"><title>2026-07-06 · captured ₹1,07,00,000 · 90,000 txns</title></rect><text class="cxlbl" x="645.6" y="228" font-size="9.5" font-family="ui-monospace,monospace" text-anchor="middle" letter-spacing="0.06em">07-06</text>
+    <text class="clbl" x="34.4" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="75.1" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="115.9" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="156.6" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="197.4" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="238.1" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="278.9" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="319.6" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="360.4" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="401.1" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="441.9" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="482.6" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="523.4" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="564.1" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="604.9" y="14.0" font-size="8.5" text-anchor="middle">₹3Cr</text><text class="clbl" x="645.6" y="134.9" font-size="8.5" text-anchor="middle">₹1.1Cr</text>
+    <path d="M 34.4 191.5 C 41.2 191.5, 61.5 191.5, 75.1 191.5 C 88.7 191.5, 102.3 191.5, 115.9 191.5 C 129.5 191.5, 143.0 191.5, 156.6 191.5 C 170.2 191.5, 183.8 191.5, 197.4 191.5 C 211.0 191.5, 224.5 191.5, 238.1 191.5 C 251.7 191.5, 265.3 191.5, 278.9 191.5 C 292.5 191.5, 306.0 191.5, 319.6 191.5 C 333.2 191.5, 346.8 191.5, 360.4 191.5 C 374.0 191.5, 387.5 191.5, 401.1 191.5 C 414.7 191.5, 428.3 191.5, 441.9 191.5 C 455.5 191.5, 469.0 191.5, 482.6 191.5 C 496.2 191.5, 509.8 191.5, 523.4 191.5 C 537.0 191.5, 550.5 191.5, 564.1 191.5 C 577.7 191.5, 591.3 220.4, 604.9 191.5 C 618.5 162.5, 638.8 46.9, 645.6 18.0 L 645.6 206 L 34.4 206 Z" fill="url(#gradArea)"/>
+    <path d="M 34.4 191.5 C 41.2 191.5, 61.5 191.5, 75.1 191.5 C 88.7 191.5, 102.3 191.5, 115.9 191.5 C 129.5 191.5, 143.0 191.5, 156.6 191.5 C 170.2 191.5, 183.8 191.5, 197.4 191.5 C 211.0 191.5, 224.5 191.5, 238.1 191.5 C 251.7 191.5, 265.3 191.5, 278.9 191.5 C 292.5 191.5, 306.0 191.5, 319.6 191.5 C 333.2 191.5, 346.8 191.5, 360.4 191.5 C 374.0 191.5, 387.5 191.5, 401.1 191.5 C 414.7 191.5, 428.3 191.5, 441.9 191.5 C 455.5 191.5, 469.0 191.5, 482.6 191.5 C 496.2 191.5, 509.8 191.5, 523.4 191.5 C 537.0 191.5, 550.5 191.5, 564.1 191.5 C 577.7 191.5, 591.3 220.4, 604.9 191.5 C 618.5 162.5, 638.8 46.9, 645.6 18.0" fill="none" stroke="#C8235D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#glowLine)"/>
+    <circle cx="34.4" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-03-23 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="75.1" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-03-30 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="115.9" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-04-06 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="156.6" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-04-13 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="197.4" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-04-20 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="238.1" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-04-27 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="278.9" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-05-04 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="319.6" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-05-11 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="360.4" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-05-18 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="401.1" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-05-25 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="441.9" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-06-01 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="482.6" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-06-08 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="523.4" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-06-15 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="564.1" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-06-22 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="604.9" cy="191.5" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-06-29 · rate 0.17% · disputed ₹50,000 (12)</title></circle><circle cx="645.6" cy="18.0" r="3.2" fill="#0A0F1C" stroke="#C8235D" stroke-width="2"><title>2026-07-06 · rate 2.2% · disputed ₹2,35,177 (1,980)</title></circle>
+    <text class="clbl-rate" x="34.4" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="75.1" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="115.9" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="156.6" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="197.4" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="238.1" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="278.9" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="319.6" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="360.4" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="401.1" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="441.9" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="482.6" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="523.4" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="564.1" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="604.9" y="183.5" font-size="9" text-anchor="middle">0.2%</text><text class="clbl-rate" x="645.6" y="33.0" font-size="9" text-anchor="middle">2.2%</text>
+  </svg></div>
+    <div class="legend"><i style="background:#7B5CF0"></i>captured (bars, relative)<i style="background:#C8235D;box-shadow:0 0 8px #C8235D"></i>dispute rate % (line, max 2.2%)</div><div style="overflow-x:auto"><table><thead><tr><th class="">Week</th><th class="num">Captured</th><th class="num">Txns</th><th class="num">Disputes</th><th class="num">Amt rate</th><th class="num">Count rate (ref)</th></tr></thead><tbody><tr><td>2026-05-04</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-05-11</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-05-18</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-05-25</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-06-01</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-06-08</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-06-15</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-06-22</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-06-29</td><td class="num">₹3,00,00,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num"><span class="stamp ok">0.17%</span></td><td class="num"><span class="stamp ok">0.01%</span></td></tr><tr><td>2026-07-06</td><td class="num">₹1,07,00,000</td><td class="num">90,000</td><td class="num">1,980</td><td class="num"><span class="stamp warn">2.2%</span></td><td class="num"><span class="stamp warn">2.2%</span></td></tr></tbody></table></div><p class="takeaway morelink">+ 6 more rows in Appendix A.</p><p class="takeaway"><b style="color:var(--dispute)">1 spike week(s)</b> flagged — worst 2026-07-06 at <b>2.2%</b> (12.9× trailing-12w median), ₹2,35,177 disputed.</p><h3>Over-indexing by payment mode</h3><div style="overflow-x:auto"><table><thead><tr><th class="">Payment mode</th><th class="num">Dispute share</th><th class="num">GMV share</th><th class="num">Over-index</th><th class="num">Disputed</th></tr></thead><tbody><tr><td class="txt">CC</td><td class="num">80%</td><td class="num">20%</td><td class="num"><span class="stamp bad">4.0×</span></td><td class="num" style="color:var(--dispute)">₹8,00,000</td></tr><tr><td class="txt">NB</td><td class="num">5%</td><td class="num">10%</td><td class="num"><span class="stamp ok">0.5×</span></td><td class="num" style="color:var(--dispute)">₹50,000</td></tr><tr><td class="txt">UPI</td><td class="num">15%</td><td class="num">70%</td><td class="num"><span class="stamp ok">0.2×</span></td><td class="num" style="color:var(--dispute)">₹1,50,000</td></tr></tbody></table></div><p class="takeaway"><b>CC</b> over-indexes at <b>4.0×</b> — 80% of disputes on 20% of GMV. Over-index &gt; 1× means a mode draws more disputes than its transaction volume warrants.</p><div class="benchline">Benchmark — over-index = dispute share ÷ GMV share; 1.0× = proportional. no benchmark available (internal).</div><h3>Top dispute sources</h3><div style="overflow-x:auto"><table><thead><tr><th class="">Type</th><th class="">Identifier</th><th class="num">Captured</th><th class="num">Disputed</th><th class="num">Disputes</th><th class="num">Ratio</th></tr></thead><tbody><tr><td>UPI_VPA</td><td class="txt" style="word-break:break-all">a@upi</td><td class="num">₹9,00,000</td><td class="num" style="color:var(--dispute)">₹2,00,000</td><td class="num">40</td><td class="num"><span class="stamp bad">22.22%</span></td></tr><tr><td>UPI_VPA</td><td class="txt" style="word-break:break-all">b@upi</td><td class="num">₹7,00,000</td><td class="num" style="color:var(--dispute)">₹1,50,000</td><td class="num">30</td><td class="num"><span class="stamp bad">21.43%</span></td></tr><tr><td>UPI_VPA</td><td class="txt" style="word-break:break-all">c@upi</td><td class="num">₹6,00,000</td><td class="num" style="color:var(--dispute)">₹1,20,000</td><td class="num">25</td><td class="num"><span class="stamp bad">20%</span></td></tr><tr><td>UPI_VPA</td><td class="txt" style="word-break:break-all">fraudring@paytm</td><td class="num">₹1,00,000</td><td class="num" style="color:var(--dispute)">₹50,000</td><td class="num">9</td><td class="num"><span class="stamp bad">50%</span></td></tr><tr><td>UPI_VPA</td><td class="txt" style="word-break:break-all">scam.1@okhdfc</td><td class="num">₹3,00,000</td><td class="num" style="color:var(--dispute)">₹40,000</td><td class="num">8</td><td class="num"><span class="stamp bad">13.33%</span></td></tr><tr><td>UPI_VPA</td><td class="txt" style="word-break:break-all">scam.2@okhdfc</td><td class="num">₹2,50,000</td><td class="num" style="color:var(--dispute)">₹30,000</td><td class="num">6</td><td class="num"><span class="stamp bad">12%</span></td></tr></tbody></table></div><p class="takeaway">Ranked by disputed amount; eligibility = captured ≥ ₹5,000 or ≥ 3 txns or ≥ 2 disputes (§5.3). Ratios capped at 100%; ▲ marks disputed &gt; captured (routed to Appendix D).</p></section>
+<section class="sec" id="s3"><div class="eyebrow">Section 3 · Attack patterns &amp; entity intelligence</div><h2>The patterns.</h2><h3>VPA handle families (§5.5 clustering)</h3><div style="overflow-x:auto"><table><thead><tr><th class="">Handle family</th><th class="num">Variants</th><th class="num">Disputed</th><th class="num">Disputes</th></tr></thead><tbody><tr><td class="txt" style="word-break:break-all">scam@okhdfc</td><td class="num">2</td><td class="num" style="color:var(--dispute)">₹70,000</td><td class="num">14</td></tr></tbody></table></div><p class="takeaway">Handles are collapsed by stripping a trailing numeric suffix (name123@upi, name.45@upi → name@upi). Families with ≥ 2 variants suggest one actor cycling VPAs.</p><h3>Cross-merchant exposure</h3><div style="overflow-x:auto"><table><thead><tr><th class="">Type</th><th class="">Identifier</th><th class="num">Merchants</th><th class="num">Disputed</th></tr></thead><tbody><tr><td>UPI_VPA</td><td class="txt" style="word-break:break-all">ring@upi</td><td class="num">2</td><td class="num" style="color:var(--dispute)">₹80,000</td></tr><tr><td>EMAIL</td><td class="txt" style="word-break:break-all">bad@x.com</td><td class="num">2</td><td class="num" style="color:var(--dispute)">₹35,000</td></tr></tbody></table></div><p class="takeaway"><b>2</b> identifier(s) dispute across ≥ 2 merchants — a network-wide signal that outranks single-merchant history.</p><h3>IP intelligence</h3><p class="empty-note">No non-DCH IP met ranking eligibility in this window.</p></section>
+<section class="sec" id="s4"><div class="eyebrow">Section 4 · Prevention &amp; ROI</div><h2>The prevention.</h2><div class="savehero">
+    <div class="saveyebrow">Preventable disputes</div>
+    <p class="savline"><b>₹2,15,000</b> (<b>21.82% of total disputed amount</b>) would have been prevented — <span class="lo">excluding SR / proxy signals</span>.</p>
+    <p class="savline sub">Including SR / proxy signals, that rises to <b>₹2,35,000</b> (<b>23.85%</b>).</p>
+    <div class="savekpis">
+      <div class="savekpi"><div class="k">Preventable · excl. SR/proxy</div><div class="v dsp">₹2,15,000</div>
+        <div class="s">6 disputed txns on hard signals — blacklists, DOT/MNRL, prior disputes, ML risk model · plus 1 UPI handle to block outright</div></div>
+      <div class="savekpi sub"><div class="k">Preventable · incl. SR/proxy</div><div class="v">₹2,35,000</div>
+        <div class="s">adds 2 txns flagged only by data-centre proxy / low success-rate identifiers</div></div>
+    </div>
+    <div class="savtrack" title="Share of total disputed value that is preventable">
+      <div class="savtrack-x" style="width:21.82%"></div>
+      <div class="savtrack-y" style="width:2.03%"></div>
+    </div>
+    <div class="savtrack-cap">
+      <span><i class="sw" style="background:linear-gradient(90deg,#7B5CF0,#C8235D)"></i>Preventable, excl. SR/proxy <b>21.82%</b></span>
+      <span><i class="sw hatch"></i>+ SR/proxy signals <b>23.85%</b></span>
+      <span class="right">100% = ₹9,85,177 total disputed</span>
+    </div>
+  </div><h3>Attributed by signal</h3><div class="listmeta" style="margin-bottom:8px">One row per preventing signal. Each disputed txn is counted once, under its single highest-priority signal
+      (DOT/MNRL &gt; CF blacklist &gt; merchant blacklist &gt; prior dispute same-MID &gt; cross-MID &gt; ML risk model &gt; block-VPA rule &gt; data-centre proxy &gt; low SR).
+      Rows above the subtotal are preventable <b>excluding</b> SR/proxy; the softer rows below add the increment to the total. The disputed-amount column reconciles to the subtotal and total.
+      The block-VPA rule is measured on UPI handles from the dispute-source ranking (amount ratio &gt; 30%), not per txn, so its handle / dispute counts sit in its sub-row and are not added to the transaction column.</div><div style="overflow-x:auto"><table><thead><tr><th class="">Signal preventing the dispute</th><th class="num">Disputed txns</th><th class="num">Disputed amt</th><th class="num">% of disputed amt</th></tr></thead><tbody><tr>
+    <td class="txt"><span class="dotc" style="background:#C8235D"></span><b>DOT/MNRL disconnected no.</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹40,000</td>
+    <td class="num"><span class="stamp warn">4.06%</span></td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#7B5CF0"></span><b>CF blacklist</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹30,000</td>
+    <td class="num"><span class="stamp warn">3.05%</span></td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#4636C7"></span><b>Merchant blacklist</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹25,000</td>
+    <td class="num"><span class="stamp warn">2.54%</span></td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#18C2B8"></span><b>Prior dispute · same MID</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹20,000</td>
+    <td class="num"><span class="stamp warn">2.03%</span></td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#0FA396"></span><b>Prior dispute · cross-MID</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹15,000</td>
+    <td class="num"><span class="stamp warn">1.52%</span></td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#FBAA19"></span><b>ML risk model</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹35,000</td>
+    <td class="num"><span class="stamp warn">3.55%</span></td></tr><tr class="subq"><td class="txt" colspan="4"><span class="submark">model quality</span> precision 86.96% · recall 90.91% · TP 400 / FP 60 / FN 40 on 500 scored card txns</td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#F2683C"></span><b>Block UPI handle (source rule)</b></td>
+    <td class="num">—</td>
+    <td class="num" style="color:var(--dispute)">₹50,000</td>
+    <td class="num"><span class="stamp warn">5.08%</span></td></tr><tr class="subq"><td class="txt" colspan="4"><span class="submark">block outright</span> 1 UPI handle over 30% amount ratio · 9 disputes &nbsp;—&nbsp; fraudring@paytm <b>50%</b> · ₹50,000</td></tr><tr class="subtot"><td class="txt">Subtotal · <b>excl. SR/proxy</b></td>
+    <td class="num">6</td>
+    <td class="num" style="color:var(--dispute)"><b>₹2,15,000</b></td>
+    <td class="num"><b>21.82%</b></td></tr><tr class="divrow"><td class="txt" colspan="4">Softer signals — SR / proxy (the increment from X to Y)</td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#FF7A9C"></span><b>IP = data-centre proxy</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹12,000</td>
+    <td class="num"><span class="stamp warn">1.22%</span></td></tr><tr>
+    <td class="txt"><span class="dotc" style="background:#5EEAD4"></span><b>Low success-rate identifier</b></td>
+    <td class="num">1</td>
+    <td class="num" style="color:var(--dispute)">₹8,000</td>
+    <td class="num"><span class="stamp ok">0.81%</span></td></tr><tr class="totrow"><td class="txt">Preventable total · <b>incl. SR/proxy</b></td>
+    <td class="num">8</td>
+    <td class="num" style="color:var(--dispute)"><b>₹2,35,000</b></td>
+    <td class="num"><b>23.85%</b></td></tr></tbody></table></div><p class="takeaway">Blocking everything above the subtotal at decision time removes <b>₹2,15,000</b> (21.82% of disputed value) — hard signals (blacklists, DOT/MNRL, prior disputes, the risk model) plus UPI handles to block outright. Folding in the softer SR / proxy signals lifts the ceiling to <b>₹2,35,000</b> (23.85%).</p><div class="benchline">Benchmark — no benchmark available — preventability is an internal ROI estimate on an amount basis, not a network metric.</div></section>
+<section class="sec appx" id="appxA"><div class="eyebrow">Appendix A · Full data tables</div><h2>Full tables &amp; CSV.</h2>
+    <p class="listmeta">Complete, uncapped source rows behind the report body. Identifiers are shown raw. Download links embed the data in this file.</p><h3>GMV &amp; customers</h3><a class="csvlink" download="RiskShield_965934_q1.csv" href="data:text/csv;base64,c2VjdGlvbixtZXRyaWMsZGltLGNhcCxkaXNwLHR4YyxkYyxyYXRpbyxzY29wZSxpZHR5cGUsaWR2YWx1ZSxtaWQKR01WLFRPVEFMX0NBUFRVUkVELCwxMDAwMDAwMDAsLDE5OTUwMDAsLCwsLCwKR01WLENBUFRVUkVEX0JZX1BBWU1FTlRNT0RFLENDLDIwMDAwMDAwLCwsLCwsLCwKR01WLENBUFRVUkVEX0JZX1BBWU1FTlRNT0RFLFVQSSw3MDAwMDAwMCwsLCwsLCwsCkdNVixDQVBUVVJFRF9CWV9QQVlNRU5UTU9ERSxOQiwxMDAwMDAwMCwsLCwsLCws">Download GMV &amp; customers — full table CSV (4 rows)</a><details><summary>full table · 4 rows</summary><div style="overflow-x:auto"><table><thead><tr><th class="">Section</th><th class="">Metric</th><th class="">Dim</th><th class="num">Captured</th><th class="num">Disputed</th><th class="num">Txns</th><th class="num">Disputes</th><th class="num">Ratio</th></tr></thead><tbody><tr><td>GMV</td><td>TOTAL_CAPTURED</td><td class="txt" style="word-break:break-all"></td><td class="num">₹10,00,00,000</td><td class="num">—</td><td class="num">19,95,000</td><td class="num">—</td><td class="num">—</td></tr><tr><td>GMV</td><td>CAPTURED_BY_PAYMENTMODE</td><td class="txt" style="word-break:break-all">CC</td><td class="num">₹2,00,00,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>GMV</td><td>CAPTURED_BY_PAYMENTMODE</td><td class="txt" style="word-break:break-all">UPI</td><td class="num">₹7,00,00,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>GMV</td><td>CAPTURED_BY_PAYMENTMODE</td><td class="txt" style="word-break:break-all">NB</td><td class="num">₹1,00,00,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr></tbody></table></div></details><h3>Dispute intelligence</h3><a class="csvlink" download="RiskShield_965934_q2.csv" href="data:text/csv;base64,c2VjdGlvbixtZXRyaWMsZGltLGNhcCxkaXNwLHR4YyxkYyxyYXRpbyxzY29wZSxpZHR5cGUsaWR2YWx1ZSxtaWQKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wMy0yMywzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wMy0zMCwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNC0wNiwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNC0xMywzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNC0yMCwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNC0yNywzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNS0wNCwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNS0xMSwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNS0xOCwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNS0yNSwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNi0wMSwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNi0wOCwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNi0xNSwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNi0yMiwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNi0yOSwzMDAwMDAwMCw1MDAwMCwxMjcwMDAsMTIsMC4xNywsLCwKV0VFS0xZLFdPV19ESVNQVVRFX1JBVEUsMjAyNi0wNy0wNiwxMDcwMDAwMCwyMzUxNzcsOTAwMDAsMTk4MCwyLjE5NzkxNTg4Nzg1MDQ2NzQsLCwsCkRHUk9VUCxGUkFVRCwsLDY4MDAwMCwsMTIwLCwsLCwKREdST1VQLFNFUlZJQ0UsLCwyMjAwMDAsLDYwLCwsLCwKREdST1VQLFBST0NFU1MsLCw1MDAwMCwsMjAsLCwsLApER1JPVVAsVU5DT0RFRCwsLDUwMDAwLCwxNSwsLCwsCkRTUExJVCxCWV9QQVlNRU5UTU9ERSxDQywsODAwMDAwLCwsLCwsLApEU1BMSVQsQllfUEFZTUVOVE1PREUsVVBJLCwxNTAwMDAsLCwsLCwsCkRTUExJVCxCWV9QQVlNRU5UTU9ERSxOQiwsNTAwMDAsLCwsLCwsClRPUF9TUkMsVVBJX1ZQQSxhQHVwaSw5MDAwMDAsMjAwMDAwLDMwMCw0MCwyMiwsLCwKVE9QX1NSQyxVUElfVlBBLGZyYXVkcmluZ0BwYXl0bSwxMDAwMDAsNTAwMDAsNjAsOSw1MCwsLCwKVE9QX1NSQyxVUElfVlBBLGJAdXBpLDcwMDAwMCwxNTAwMDAsMjUwLDMwLDIxLCwsLApUT1BfU1JDLFVQSV9WUEEsY0B1cGksNjAwMDAwLDEyMDAwMCwyMjAsMjUsMjAsLCwsClRPUF9TUkMsVVBJX1ZQQSxzY2FtLjFAb2toZGZjLDMwMDAwMCw0MDAwMCw5MCw4LDEzLCwsLApUT1BfU1JDLFVQSV9WUEEsc2NhbS4yQG9raGRmYywyNTAwMDAsMzAwMDAsODAsNiwxMiwsLCw=">Download Dispute intelligence — full table CSV (29 rows)</a><details><summary>full table · 29 rows</summary><div style="overflow-x:auto"><table><thead><tr><th class="">Section</th><th class="">Metric</th><th class="">Dim</th><th class="num">Captured</th><th class="num">Disputed</th><th class="num">Txns</th><th class="num">Disputes</th><th class="num">Ratio</th></tr></thead><tbody><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-03-23</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-03-30</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-04-06</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-04-13</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-04-20</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-04-27</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-05-04</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-05-11</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-05-18</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-05-25</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-06-01</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-06-08</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-06-15</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-06-22</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-06-29</td><td class="num">₹3,00,00,000</td><td class="num">₹50,000</td><td class="num">1,27,000</td><td class="num">12</td><td class="num">0.17%</td></tr><tr><td>WEEKLY</td><td>WOW_DISPUTE_RATE</td><td class="txt" style="word-break:break-all">2026-07-06</td><td class="num">₹1,07,00,000</td><td class="num">₹2,35,177</td><td class="num">90,000</td><td class="num">1,980</td><td class="num">2.2%</td></tr><tr><td>DGROUP</td><td>FRAUD</td><td class="txt" style="word-break:break-all"></td><td class="num">—</td><td class="num">₹6,80,000</td><td class="num">—</td><td class="num">120</td><td class="num">—</td></tr><tr><td>DGROUP</td><td>SERVICE</td><td class="txt" style="word-break:break-all"></td><td class="num">—</td><td class="num">₹2,20,000</td><td class="num">—</td><td class="num">60</td><td class="num">—</td></tr><tr><td>DGROUP</td><td>PROCESS</td><td class="txt" style="word-break:break-all"></td><td class="num">—</td><td class="num">₹50,000</td><td class="num">—</td><td class="num">20</td><td class="num">—</td></tr><tr><td>DGROUP</td><td>UNCODED</td><td class="txt" style="word-break:break-all"></td><td class="num">—</td><td class="num">₹50,000</td><td class="num">—</td><td class="num">15</td><td class="num">—</td></tr><tr><td>DSPLIT</td><td>BY_PAYMENTMODE</td><td class="txt" style="word-break:break-all">CC</td><td class="num">—</td><td class="num">₹8,00,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>DSPLIT</td><td>BY_PAYMENTMODE</td><td class="txt" style="word-break:break-all">UPI</td><td class="num">—</td><td class="num">₹1,50,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>DSPLIT</td><td>BY_PAYMENTMODE</td><td class="txt" style="word-break:break-all">NB</td><td class="num">—</td><td class="num">₹50,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TOP_SRC</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">a@upi</td><td class="num">₹9,00,000</td><td class="num">₹2,00,000</td><td class="num">300</td><td class="num">40</td><td class="num">22%</td></tr><tr><td>TOP_SRC</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">fraudring@paytm</td><td class="num">₹1,00,000</td><td class="num">₹50,000</td><td class="num">60</td><td class="num">9</td><td class="num">50%</td></tr><tr><td>TOP_SRC</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">b@upi</td><td class="num">₹7,00,000</td><td class="num">₹1,50,000</td><td class="num">250</td><td class="num">30</td><td class="num">21%</td></tr><tr><td>TOP_SRC</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">c@upi</td><td class="num">₹6,00,000</td><td class="num">₹1,20,000</td><td class="num">220</td><td class="num">25</td><td class="num">20%</td></tr><tr><td>TOP_SRC</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">scam.1@okhdfc</td><td class="num">₹3,00,000</td><td class="num">₹40,000</td><td class="num">90</td><td class="num">8</td><td class="num">13%</td></tr><tr><td>TOP_SRC</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">scam.2@okhdfc</td><td class="num">₹2,50,000</td><td class="num">₹30,000</td><td class="num">80</td><td class="num">6</td><td class="num">12%</td></tr></tbody></table></div></details><h3>Cross-merchant exposure</h3><a class="csvlink" download="RiskShield_965934_q3.csv" href="data:text/csv;base64,c2VjdGlvbixtZXRyaWMsZGltLGNhcCxkaXNwLHR4YyxkYyxyYXRpbyxzY29wZSxpZHR5cGUsaWR2YWx1ZSxtaWQKLCwsLDgwMDAwLCwxMiwsT1ZFUkFMTCxVUElfVlBBLHJpbmdAdXBpLAosLCwsMzUwMDAsLDYsLE9WRVJBTEwsRU1BSUwsYmFkQHguY29tLAosLCwsNTAwMDAsLCwsUEVSX01FUkNIQU5ULFVQSV9WUEEscmluZ0B1cGksOTY1OTM0CiwsLCwzMDAwMCwsLCxQRVJfTUVSQ0hBTlQsVVBJX1ZQQSxyaW5nQHVwaSwxMTExMTEKLCwsLDIwMDAwLCwsLFBFUl9NRVJDSEFOVCxFTUFJTCxiYWRAeC5jb20sOTY1OTM0CiwsLCwxNTAwMCwsLCxQRVJfTUVSQ0hBTlQsRU1BSUwsYmFkQHguY29tLDIyMjIyMg==">Download Cross-merchant exposure — full table CSV (6 rows)</a><details><summary>full table · 6 rows</summary><div style="overflow-x:auto"><table><thead><tr><th class="">Scope</th><th class="">Type</th><th class="">Identifier</th><th class="">MID</th><th class="num">Captured</th><th class="num">Disputed</th><th class="num">Txns</th><th class="num">Disputes</th><th class="num">Ratio</th></tr></thead><tbody><tr><td>OVERALL</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">ring@upi</td><td></td><td class="num">—</td><td class="num">₹80,000</td><td class="num">—</td><td class="num">12</td><td class="num">—</td></tr><tr><td>OVERALL</td><td>EMAIL</td><td class="txt" style="word-break:break-all">bad@x.com</td><td></td><td class="num">—</td><td class="num">₹35,000</td><td class="num">—</td><td class="num">6</td><td class="num">—</td></tr><tr><td>PER_MERCHANT</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">ring@upi</td><td>965934</td><td class="num">—</td><td class="num">₹50,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>PER_MERCHANT</td><td>UPI_VPA</td><td class="txt" style="word-break:break-all">ring@upi</td><td>111111</td><td class="num">—</td><td class="num">₹30,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>PER_MERCHANT</td><td>EMAIL</td><td class="txt" style="word-break:break-all">bad@x.com</td><td>965934</td><td class="num">—</td><td class="num">₹20,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>PER_MERCHANT</td><td>EMAIL</td><td class="txt" style="word-break:break-all">bad@x.com</td><td>222222</td><td class="num">—</td><td class="num">₹15,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr></tbody></table></div></details><h3>Preventable disputes</h3><a class="csvlink" download="RiskShield_965934_q4.csv" href="data:text/csv;base64,c2VjdGlvbixtZXRyaWMsZGltLGNhcCxkaXNwLHR4YyxkYyxyYXRpbyxzY29wZSxpZHR5cGUsaWR2YWx1ZSxtaWQKVFhOLERPVF9NTlJMLHQxwqdyaW5nQHVwaSw2MDAwMCw0MDAwMCwsLCwsLCwKVFhOLENGX0JMQUNLTElTVCx0MsKnYmFkQHguY29tLDUwMDAwLDMwMDAwLCwsLCwsLApUWE4sTUVSQ0hBTlRfQkxBQ0tMSVNULHQzwqdzY2FtQHVwaSw0MDAwMCwyNTAwMCwsLCwsLCwKVFhOLFBSSU9SX1NBTUVfTUlELHQ0wqc5OTkwMDAxLDMwMDAwLDIwMDAwLCwsLCwsLApUWE4sUFJJT1JfQ1JPU1NfTUlELHQ1wqc4ODgwMDAyLDI1MDAwLDE1MDAwLCwsLCwsLApUWE4sTUxfTU9ERUwsdDbCpzAuODcsNDUwMDAsMzUwMDAsLCwsLCwsClRYTixEQ0gsdDfCpywxODAwMCwxMjAwMCwsLCwsLCwKVFhOLFNSLHQ4wqdVUElfVlBBwqdsb3dAdXBpLDEyMDAwLDgwMDAsLCwzNSwsLCwKTUxTVEFULE1MLFNVTU1BUlksNDAwLDYwLCw0MCwsLCws">Download Preventable disputes — full table CSV (9 rows)</a><details><summary>full table · 9 rows</summary><div style="overflow-x:auto"><table><thead><tr><th class="">Section</th><th class="">Metric</th><th class="">Dim</th><th class="num">Captured</th><th class="num">Disputed</th><th class="num">Txns</th><th class="num">Disputes</th><th class="num">Ratio</th></tr></thead><tbody><tr><td>TXN</td><td>DOT_MNRL</td><td class="txt" style="word-break:break-all">t1§ring@upi</td><td class="num">₹60,000</td><td class="num">₹40,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TXN</td><td>CF_BLACKLIST</td><td class="txt" style="word-break:break-all">t2§bad@x.com</td><td class="num">₹50,000</td><td class="num">₹30,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TXN</td><td>MERCHANT_BLACKLIST</td><td class="txt" style="word-break:break-all">t3§scam@upi</td><td class="num">₹40,000</td><td class="num">₹25,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TXN</td><td>PRIOR_SAME_MID</td><td class="txt" style="word-break:break-all">t4§9990001</td><td class="num">₹30,000</td><td class="num">₹20,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TXN</td><td>PRIOR_CROSS_MID</td><td class="txt" style="word-break:break-all">t5§8880002</td><td class="num">₹25,000</td><td class="num">₹15,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TXN</td><td>ML_MODEL</td><td class="txt" style="word-break:break-all">t6§0.87</td><td class="num">₹45,000</td><td class="num">₹35,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TXN</td><td>DCH</td><td class="txt" style="word-break:break-all">t7§</td><td class="num">₹18,000</td><td class="num">₹12,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr><tr><td>TXN</td><td>SR</td><td class="txt" style="word-break:break-all">t8§UPI_VPA§low@upi</td><td class="num">₹12,000</td><td class="num">₹8,000</td><td class="num">—</td><td class="num">—</td><td class="num">35%</td></tr><tr><td>MLSTAT</td><td>ML</td><td class="txt" style="word-break:break-all">SUMMARY</td><td class="num">₹400</td><td class="num">₹60</td><td class="num">—</td><td class="num">40</td><td class="num">—</td></tr></tbody></table></div></details></section>
+<section class="sec appx" id="appxB"><div class="eyebrow">Appendix B · Methodology</div><h2>How this was computed.</h2>
+    <p class="sub">Windowed to the last 180 days of transaction date; disputes joined on their originating transaction.</p>
+    <h3>Dispute rates (§5.1)</h3><p class="listmeta">Amount rate = disputed ÷ captured amount — the primary rate this desk verdicts on, because enforcement and recovery here are amount-driven. Count rate = disputes ÷ captured (SUCCESS) transactions — kept as a compliance reference, matching how card networks monitor. Both are labelled wherever shown.</p>
+    <h3>Benchmarks (§5.2, as of 2026-07-01)</h3><p class="listmeta">Visa VAMP (merchant): above-standard 0.5%, excessive 1.5% (count-based, effective 2026-04-01; minimum 1,500 settled txns to action). Mastercard ECP: ECM ≥ 100 chargebacks and 1.5% ratio; HECM ≥ 300 and 3% (lagged (prior-month) chargeback-to-transaction ratio). UPI per-MCC peer percentile: no benchmark available. Sources: Visa Acquirer Monitoring Program, 2026 thresholds; Mastercard Excessive Chargeback Program, 2026.</p>
+    <h3>Eligibility &amp; ratio capping (§5.3)</h3><p class="listmeta">Identifiers rank by disputed amount and must clear captured ≥ ₹5,000 or ≥ 3 txns or ≥ 2 disputes. Ratio = min(disputed, captured) ÷ captured, capped at 100%; rows where disputed &gt; captured are marked ▲ and listed in Appendix D.</p>
+    <h3>Verdict engine (§5.4)</h3><p class="listmeta">Five signals scored 0–100, each graded independently, then weighted: amount dispute-rate 30%, fraud-coded share 25%, rate trend 20%, concentration 15%, network / known-bad 10%. The amount rate is scored against an internal amount band (above-standard 1%, excessive 3%) because no card network monitors an amount-basis rate; count-basis VAMP/ECP are shown alongside as a compliance reference. Grade bands: LOW &lt; 20, GUARDED &lt; 40, ELEVATED &lt; 60, HIGH &lt; 80, CRITICAL ≥ 80. The verdict line reconciles to its top drivers.</p>
+    <h3>Clustering, reasons, spikes (§5.5–5.7)</h3><p class="listmeta">VPA handles collapse by stripping a trailing numeric suffix. Reason codes map to groups: 1401/128 → fraud; 1403/1064/1065/1061 → service; 1084 → processing; 4853 → conditional cardholder dispute; unmapped codes raise a data-quality alert. A week is a spike when its amount dispute-rate exceeds max(3× the trailing-12-week median, 1.0%) and disputed value ≥ ₹25,000.</p></section>
+<section class="sec appx" id="appxC"><div class="eyebrow">Appendix C · Glossary</div><h2>Terms.</h2>
+    <dl class="glossary"><dt>Amount dispute rate</dt><dd>Disputed value divided by captured value. The primary rate this desk verdicts on — enforcement and recovery here are amount-driven.</dd><dt>Count dispute rate</dt><dd>Disputes divided by captured (successful) transactions. Kept as a compliance reference — the rate card networks monitor.</dd><dt>PAR</dt><dd>Payment Account Reference — a stable card identity that survives re-issuance, used to rank card sources.</dd><dt>VPA</dt><dd>Virtual Payment Address — a UPI handle such as name@bank.</dd><dt>CGNAT</dt><dd>Carrier-grade NAT (100.64.0.0/10): shared address space where many users sit behind one IP.</dd><dt>DCH</dt><dd>Data-centre-hosted IP — traffic from hosting providers rather than consumer connections.</dd><dt>Chargeback-to-transaction ratio</dt><dd>Chargebacks divided by transactions, the basis for card-network monitoring programmes.</dd><dt>Preventable (strict)</dt><dd>Disputes on identifiers already on a blacklist, DOT-MNRL list, or with a prior dispute before the transaction.</dd><dt>Over-index</dt><dd>A payment mode’s dispute share divided by its GMV share; above 1.0× means more disputes than its volume warrants.</dd></dl></section>
+<section class="sec appx" id="appxD"><div class="eyebrow">Appendix D · Data quality</div><h2>Caveats &amp; anomalies.</h2><p class="empty-note">No data-quality anomalies detected in this window.</p></section>
+<footer class="brandfoot">RiskShield by Cashfree Payments · dispute rates dual (amount primary, count compliance reference) · benchmarks as of 2026-07-01</footer>
+</div></body></html>
